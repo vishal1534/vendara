@@ -25,8 +25,7 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Dependency directories
-vendor/
+
 
 # Laravel specific
 /storage/*.key
