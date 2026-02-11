@@ -1,0 +1,23 @@
+{
+  "_comment": "Add this configuration to all service appsettings.json files",
+  
+  "Services": {
+    "IdentityServiceUrl": "http://localhost:5001",
+    "VendorServiceUrl": "http://localhost:5002",
+    "OrderServiceUrl": "http://localhost:5004",
+    "CatalogServiceUrl": "http://localhost:5005",
+    "PaymentServiceUrl": "http://localhost:5007",
+    "NotificationServiceUrl": "http://localhost:5010",
+    "IntegrationServiceUrl": "http://localhost:5012"
+  },
+  
+  "InternalApiKeys": {
+    "IdentityService": "dev-key-identity-realserv-2026",
+    "VendorService": "dev-key-vendor-realserv-2026",
+    "OrderService": "dev-key-order-realserv-2026",
+    "CatalogService": "dev-key-catalog-realserv-2026",
+    "PaymentService": "dev-key-payment-realserv-2026",
+    "NotificationService": "dev-key-notification-realserv-2026",
+    "IntegrationService": "dev-key-integration-realserv-2026"
+  }
+}

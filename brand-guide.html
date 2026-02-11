@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendara Brand Guide (MVP)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #1C1E21;
+      background: #F7F8FA;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    header {
+      background: #FFFFFF;
+      border-bottom: 1px solid #E5E7EB;
+      padding: 32px 0;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+      color: #1C1E21;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #1C1E21;
+      margin-top: 48px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #1F6AE1;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1C1E21;
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+
+    h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1C1E21;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: #1C1E21;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: #6B7280;
+    }
+
+    .section {
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 16px;
+    }
+
+    .card {
+      background: #F7F8FA;
+      border: 1px solid #E5E7EB;
+      border-radius: 6px;
+      padding: 20px;
+    }
+
+    .card h4 {
+      margin-top: 0;
+    }
+
+    .comparison-table {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 16px;
+    }
+
+    .comparison-col {
+      background: #F7F8FA;
+      border: 1px solid #E5E7EB;
+      border-radius: 6px;
+      padding: 20px;
+    }
+
+    .comparison-col h4 {
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    .comparison-col.correct {
+      border-left: 4px solid #16A34A;
+    }
+
+    .comparison-col.incorrect {
+      border-left: 4px solid #DC2626;
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: #1C1E21;
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .color-swatch {
+      border: 1px solid #E5E7EB;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .color-box {
+      height: 80px;
+      width: 100%;
+    }
+
+    .color-info {
+      padding: 12px;
+      background: #FFFFFF;
+    }
+
+    .color-name {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .color-hex {
+      font-size: 14px;
+      color: #6B7280;
+      font-family: 'Courier New', monospace;
+    }
+
+    .example-box {
+      background: #F7F8FA;
+      border: 1px solid #E5E7EB;
+      border-radius: 6px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+
+    .example-box.correct {
+      border-left: 4px solid #16A34A;
+    }
+
+    .example-box.incorrect {
+      border-left: 4px solid #DC2626;
+    }
+
+    .example-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .example-box.correct .example-label {
+      color: #16A34A;
+    }
+
+    .example-box.incorrect .example-label {
+      color: #DC2626;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px;
+      border: 1px solid #E5E7EB;
+    }
+
+    th {
+      background: #F7F8FA;
+      font-weight: 600;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 4px 4px 4px 0;
+    }
+
+    .tag.do {
+      background: #DCFCE7;
+      color: #16A34A;
+    }
+
+    .tag.dont {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    .highlight-box {
+      background: #EFF6FF;
+      border-left: 4px solid #1F6AE1;
+      padding: 20px;
+      margin: 24px 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+      color: #1C1E21;
+    }
+
+    .order-states {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .state-badge {
+      padding: 8px 16px;
+      background: #F7F8FA;
+      border: 2px solid #1F6AE1;
+      border-radius: 6px;
+      font-weight: 600;
+      color: #1C1E21;
+    }
+
+    .arrow {
+      color: #6B7280;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 24px 16px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      h2 {
+        font-size: 20px;
+        margin-top: 32px;
+      }
+
+      .section {
+        padding: 20px;
+      }
+
+      .comparison-table {
+        grid-template-columns: 1fr;
+      }
+
+      .order-states {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .arrow {
+        transform: rotate(90deg);
+      }
+    }
+
+    .nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid #E5E7EB;
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      margin-bottom: 24px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: #6B7280;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: #1F6AE1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Vendara</h1>
+      <p class="subtitle">Brand Guide (MVP)</p>
+    </div>
+  </header>
+
+  <div class="nav">
+    <div class="container">
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#positioning">Positioning</a>
+        <a href="#personality">Personality</a>
+        <a href="#voice">Voice & Tone</a>
+        <a href="#messaging">Messaging</a>
+        <a href="#visual">Visual Identity</a>
+        <a href="#ui">UI Principles</a>
+        <a href="#guardrails">Guardrails</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    
+    <!-- Brand Overview -->
+    <section id="overview" class="section">
+      <h2>1. Brand Overview</h2>
+      
+      <h3>Brand Name</h3>
+      <p>Vendara</p>
+
+      <h3>Brand Category</h3>
+      <p>Construction supplies and services platform</p>
+
+      <h3>Brand Role</h3>
+      <p>Infrastructure layer for small-scale construction procurement</p>
+    </section>
+
+    <!-- Brand Purpose -->
+    <section class="section">
+      <h2>2. Brand Purpose</h2>
+      <p>To bring predictability and control to small construction projects by enabling access to materials and services in the exact quantities people actually need.</p>
+    </section>
+
+    <!-- Brand Positioning -->
+    <section id="positioning" class="section">
+      <h2>3. Brand Positioning</h2>
+      
+      <h3>Positioning Statement</h3>
+      <p>Vendara is a reliability-first construction supplies and services platform built for individuals and small sites that need micro quantities, fixed pricing, and dependable execution.</p>
+
+      <div class="comparison-table">
+        <div class="comparison-col correct">
+          <h4>✓ What Vendara IS</h4>
+          <ul>
+            <li>Infrastructure-driven</li>
+            <li>Local and practical</li>
+            <li>Predictable and controlled</li>
+          </ul>
+        </div>
+        <div class="comparison-col incorrect">
+          <h4>✗ What Vendara is NOT</h4>
+          <ul>
+            <li>A discount marketplace</li>
+            <li>A contractor directory</li>
+            <li>A bulk procurement platform</li>
+            <li>A hype-driven consumer app</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brand Promise -->
+    <section class="section">
+      <h2>4. Brand Promise</h2>
+      <div class="highlight-box">
+        <p><strong>You get what you need, when you need it, without uncertainty.</strong></p>
+      </div>
+    </section>
+
+    <!-- Brand Personality -->
+    <section id="personality" class="section">
+      <h2>5. Brand Personality</h2>
+      
+      <h3>Vendara should consistently feel:</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Trait</th>
+            <th>Meaning in Practice</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Reliable</strong></td>
+            <td>Does exactly what it commits to</td>
+          </tr>
+          <tr>
+            <td><strong>Calm</strong></td>
+            <td>No urgency language, no hype</td>
+          </tr>
+          <tr>
+            <td><strong>Practical</strong></td>
+            <td>Solves real, daily problems</td>
+          </tr>
+          <tr>
+            <td><strong>Respectful</strong></td>
+            <td>Respects users and vendors</td>
+          </tr>
+          <tr>
+            <td><strong>Controlled</strong></td>
+            <td>Feels organized and in charge</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Vendara should NEVER feel:</h3>
+      <div style="margin-top: 16px;">
+        <span class="tag dont">Flashy</span>
+        <span class="tag dont">Playful</span>
+        <span class="tag dont">Aggressive</span>
+        <span class="tag dont">Experimental</span>
+        <span class="tag dont">Cheap</span>
+      </div>
+    </section>
+
+    <!-- Voice & Tone -->
+    <section id="voice" class="section">
+      <h2>6. Voice & Tone</h2>
+      
+      <h3>Voice Characteristics</h3>
+      <div style="margin-top: 16px;">
+        <span class="tag do">Clear</span>
+        <span class="tag do">Neutral</span>
+        <span class="tag do">Confident</span>
+        <span class="tag do">Direct</span>
+      </div>
+
+      <h3>Tone Guidelines</h3>
+      <ul>
+        <li>Helpful, not promotional</li>
+        <li>Firm, not harsh</li>
+        <li>Reassuring, not emotional</li>
+      </ul>
+
+      <h3>Writing Rules</h3>
+      <ul>
+        <li>Short sentences</li>
+        <li>Simple vocabulary</li>
+        <li>No exaggeration</li>
+        <li>No emojis</li>
+        <li>No slang</li>
+        <li>No blame language</li>
+      </ul>
+
+      <h3>Examples</h3>
+      <div class="example-box correct">
+        <div class="example-label">✓ Correct</div>
+        <p>Order confirmed. Delivery scheduled for tomorrow 10–12.</p>
+      </div>
+
+      <div class="example-box incorrect">
+        <div class="example-label">✗ Incorrect</div>
+        <p>Great news! Your order is on the way 🚚🔥</p>
+      </div>
+    </section>
+
+    <!-- Messaging Framework -->
+    <section id="messaging" class="section">
+      <h2>7. Messaging Framework</h2>
+      
+      <h3>Core Message Pillars</h3>
+      <ul>
+        <li>Small quantities supported</li>
+        <li>Fixed and transparent pricing</li>
+        <li>Clear delivery and service timelines</li>
+        <li>Local fulfillment</li>
+        <li>Central accountability</li>
+      </ul>
+
+      <div class="comparison-table">
+        <div class="comparison-col correct">
+          <h4>✓ Language to USE</h4>
+          <ul>
+            <li>Fixed prices</li>
+            <li>Clear slots</li>
+            <li>Reliable delivery</li>
+            <li>Local vendors</li>
+            <li>Predictable service</li>
+          </ul>
+        </div>
+        <div class="comparison-col incorrect">
+          <h4>✗ Language to AVOID</h4>
+          <ul>
+            <li>Cheapest</li>
+            <li>Best in market</li>
+            <li>Fastest ever</li>
+            <li>Disrupting construction</li>
+            <li>Hassle-free</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Taglines -->
+    <section class="section">
+      <h2>8. Taglines</h2>
+      
+      <h3>Primary Tagline</h3>
+      <div class="highlight-box">
+        <p><strong>Build with certainty.</strong></p>
+      </div>
+
+      <h3>Secondary / Contextual Taglines</h3>
+      <ul>
+        <li>Construction, made predictable</li>
+        <li>Small quantities. Clear timelines.</li>
+        <li>Reliable supplies for real builds</li>
+        <li>Micro-quantity construction supplies and services</li>
+      </ul>
+    </section>
+
+    <!-- Visual Identity -->
+    <section id="visual" class="section">
+      <h2>9. Visual Identity</h2>
+      
+      <h3>Visual Philosophy</h3>
+      <p><strong>Utility-first, infrastructure-grade design.</strong></p>
+
+      <h3>Design should feel:</h3>
+      <ul>
+        <li>Solid</li>
+        <li>Calm</li>
+        <li>Structured</li>
+        <li>Highly legible in outdoor environments</li>
+      </ul>
+
+      <p><strong>No decorative visuals. No trends.</strong></p>
+    </section>
+
+    <!-- Color Palette -->
+    <section class="section">
+      <h2>10. Color Palette</h2>
+      
+      <h3>Core Colors</h3>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="color-box" style="background: #1F6AE1;"></div>
+          <div class="color-info">
+            <div class="color-name">Primary</div>
+            <div class="color-hex">#1F6AE1</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #F7F8FA; border: 1px solid #E5E7EB;"></div>
+          <div class="color-info">
+            <div class="color-name">Background</div>
+            <div class="color-hex">#F7F8FA</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #FFFFFF; border: 1px solid #E5E7EB;"></div>
+          <div class="color-info">
+            <div class="color-name">Surface</div>
+            <div class="color-hex">#FFFFFF</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #1C1E21;"></div>
+          <div class="color-info">
+            <div class="color-name">Text Primary</div>
+            <div class="color-hex">#1C1E21</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #6B7280;"></div>
+          <div class="color-info">
+            <div class="color-name">Text Secondary</div>
+            <div class="color-hex">#6B7280</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #E5E7EB;"></div>
+          <div class="color-info">
+            <div class="color-name">Border</div>
+            <div class="color-hex">#E5E7EB</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Status Colors</h3>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="color-box" style="background: #16A34A;"></div>
+          <div class="color-info">
+            <div class="color-name">Success</div>
+            <div class="color-hex">#16A34A</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #D97706;"></div>
+          <div class="color-info">
+            <div class="color-name">Warning</div>
+            <div class="color-hex">#D97706</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #DC2626;"></div>
+          <div class="color-info">
+            <div class="color-name">Error</div>
+            <div class="color-hex">#DC2626</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Rules</h3>
+      <ul>
+        <li>No gradients</li>
+        <li>No neon colors</li>
+        <li>Status colors always paired with text</li>
+      </ul>
+    </section>
+
+    <!-- Typography -->
+    <section class="section">
+      <h2>11. Typography</h2>
+      
+      <h3>Primary Font</h3>
+      <p style="font-size: 24px; font-weight: 600;">Inter</p>
+
+      <h3>Fallbacks</h3>
+      <ul>
+        <li>System UI</li>
+        <li>Roboto (Android)</li>
+      </ul>
+
+      <h3>Typography Rules</h3>
+      <ul>
+        <li>Maximum two font weights (400, 600)</li>
+        <li>No italics</li>
+        <li>No decorative fonts</li>
+        <li>High numeric legibility</li>
+      </ul>
+
+      <h3>Example Text Styles</h3>
+      <div class="card">
+        <p style="font-size: 24px; font-weight: 600; margin-bottom: 8px;">Heading Large (24px, 600)</p>
+        <p style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Heading Medium (18px, 600)</p>
+        <p style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Heading Small (16px, 600)</p>
+        <p style="font-size: 16px; font-weight: 400; margin-bottom: 8px;">Body Regular (16px, 400)</p>
+        <p style="font-size: 14px; font-weight: 400; color: #6B7280; margin-bottom: 0;">Body Small (14px, 400)</p>
+      </div>
+    </section>
+
+    <!-- UI Principles -->
+    <section id="ui" class="section">
+      <h2>12. UI & Product Behavior Alignment</h2>
+      
+      <h3>UI Principles</h3>
+      <ul>
+        <li>One primary action per screen</li>
+        <li>Predictable navigation</li>
+        <li>Binary choices where possible</li>
+        <li>Clear, visible order states</li>
+      </ul>
+
+      <h3>Order State Language (Locked)</h3>
+      <div class="order-states">
+        <div class="state-badge">Placed</div>
+        <div class="arrow">→</div>
+        <div class="state-badge">Confirmed</div>
+        <div class="arrow">→</div>
+        <div class="state-badge">In Progress</div>
+        <div class="arrow">→</div>
+        <div class="state-badge">Completed</div>
+      </div>
+      <div style="margin-top: 16px;">
+        <div class="state-badge" style="border-color: #DC2626; color: #DC2626;">Issue</div>
+      </div>
+
+      <p style="margin-top: 24px;"><strong>These terms must remain consistent across:</strong></p>
+      <ul>
+        <li>App UI</li>
+        <li>WhatsApp messages</li>
+        <li>Ops dashboards</li>
+        <li>Support communication</li>
+      </ul>
+    </section>
+
+    <!-- Trust Expression -->
+    <section class="section">
+      <h2>13. Trust Expression</h2>
+      
+      <div class="comparison-table">
+        <div class="comparison-col correct">
+          <h4>✓ Trust is built through:</h4>
+          <ul>
+            <li>Fixed pricing</li>
+            <li>Clear scopes</li>
+            <li>Explicit confirmations</li>
+            <li>Calm communication</li>
+            <li>Central issue resolution</li>
+          </ul>
+        </div>
+        <div class="comparison-col incorrect">
+          <h4>✗ Trust is NOT built through:</h4>
+          <ul>
+            <li>Ratings</li>
+            <li>Testimonials</li>
+            <li>Badges</li>
+            <li>Marketing claims</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vendor Brand Alignment -->
+    <section class="section">
+      <h2>14. Vendor Brand Alignment</h2>
+      
+      <h3>When vendors interact with Vendara, the brand should feel:</h3>
+      <div style="margin-top: 16px;">
+        <span class="tag do">Fair</span>
+        <span class="tag do">Predictable</span>
+        <span class="tag do">Respectful</span>
+        <span class="tag do">Consistent</span>
+      </div>
+
+      <h3>Vendors should NEVER feel:</h3>
+      <div style="margin-top: 16px;">
+        <span class="tag dont">Pressured</span>
+        <span class="tag dont">Negotiated with</span>
+        <span class="tag dont">Publicly judged</span>
+        <span class="tag dont">Blamed</span>
+      </div>
+    </section>
+
+    <!-- Brand Guardrails -->
+    <section id="guardrails" class="section">
+      <h2>15. Brand Guardrails</h2>
+      
+      <h3>Vendara must NEVER:</h3>
+      <ul>
+        <li>Overpromise speed</li>
+        <li>Shift responsibility publicly</li>
+        <li>Use emotional or celebratory language</li>
+        <li>Blame vendors or buyers</li>
+        <li>Appear chaotic or casual</li>
+      </ul>
+    </section>
+
+    <!-- Brand Lock Statement -->
+    <section class="section">
+      <h2>16. Brand Lock Statement</h2>
+      <div class="highlight-box">
+        <p><strong>Vendara is a calm, reliability-first infrastructure brand designed to bring clarity, predictability, and control to small-scale construction procurement.</strong></p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="margin-top: 64px; padding: 32px 0; border-top: 1px solid #E5E7EB; text-align: center;">
+      <p style="color: #6B7280; font-size: 14px;">Vendara Brand Guide (MVP) • Last Updated: January 2026</p>
+    </footer>
+
+  </div>
+</body>
+</html>

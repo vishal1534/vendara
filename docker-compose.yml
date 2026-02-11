@@ -1,0 +1,149 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Databases (local development)
+  postgres-users:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: realserv_users_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-users-data:/var/lib/postgresql/data
+    networks:
+      - realserv-network
+
+  postgres-vendor:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: realserv_vendor_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-vendor-data:/var/lib/postgresql/data
+    networks:
+      - realserv-network
+
+  postgres-order:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: realserv_order_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres-order-data:/var/lib/postgresql/data
+    networks:
+      - realserv-network
+
+  postgres-payment:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: realserv_payment_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres-payment-data:/var/lib/postgresql/data
+    networks:
+      - realserv-network
+
+  # Redis (caching & session management)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - realserv-network
+
+  # LocalStack (AWS emulation for local development)
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"
+      - "4571:4571"
+    environment:
+      - SERVICES=s3,sqs,sns,secretsmanager
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - localstack-data:/tmp/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - realserv-network
+
+  # User Management Service
+  user-management-service:
+    build:
+      context: ./src/services/UserManagementService
+      dockerfile: Dockerfile
+    ports:
+      - "5001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres-users;Database=realserv_users_db;Username=postgres;Password=postgres
+      - Redis__ConnectionString=redis:6379
+      - Firebase__ProjectId=realserv-mvp-test
+    depends_on:
+      - postgres-users
+      - redis
+    networks:
+      - realserv-network
+
+  # Order Service
+  order-service:
+    build:
+      context: ./src/services/OrderService
+      dockerfile: Dockerfile
+    ports:
+      - "5004:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres-order;Database=realserv_order_db;Username=postgres;Password=postgres
+      - Redis__ConnectionString=redis:6379
+      - Firebase__ProjectId=realserv-mvp-test
+    depends_on:
+      - postgres-order
+      - redis
+    networks:
+      - realserv-network
+
+  # Payment Service
+  payment-service:
+    build:
+      context: ./src/services/PaymentService
+      dockerfile: Dockerfile
+    ports:
+      - "5007:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres-payment;Database=realserv_payment_db;Username=postgres;Password=postgres
+      - Redis__ConnectionString=redis:6379
+      - Firebase__ProjectId=realserv-mvp-test
+      - Razorpay__KeyId=${RAZORPAY_TEST_KEY_ID}
+      - Razorpay__KeySecret=${RAZORPAY_TEST_KEY_SECRET}
+    depends_on:
+      - postgres-payment
+      - redis
+    networks:
+      - realserv-network
+
+networks:
+  realserv-network:
+    driver: bridge
+
+volumes:
+  postgres-users-data:
+  postgres-vendor-data:
+  postgres-order-data:
+  postgres-payment-data:
+  redis-data:
+  localstack-data:

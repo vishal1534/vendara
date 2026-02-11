@@ -1,0 +1,49 @@
+{
+  "IpRateLimiting": {
+    "EnableEndpointRateLimiting": true,
+    "StackBlockedRequests": false,
+    "RealIpHeader": "X-Real-IP",
+    "ClientIdHeader": "X-ClientId",
+    "HttpStatusCode": 429,
+    "EndpointWhitelist": [
+      "get:/health",
+      "get:/health/ready",
+      "post:/api/v1/webhooks/razorpay"
+    ],
+    "GeneralRules": [
+      {
+        "Endpoint": "post:/api/v1/payments",
+        "Period": "1m",
+        "Limit": 10
+      },
+      {
+        "Endpoint": "post:/api/v1/payments",
+        "Period": "1h",
+        "Limit": 50
+      },
+      {
+        "Endpoint": "*",
+        "Period": "1m",
+        "Limit": 30
+      },
+      {
+        "Endpoint": "*",
+        "Period": "1h",
+        "Limit": 300
+      },
+      {
+        "Endpoint": "*",
+        "Period": "1d",
+        "Limit": 3000
+      }
+    ],
+    "QuotaExceededResponse": {
+      "Content": "{\"error\": \"Rate limit exceeded\", \"service\": \"PaymentService\", \"retryAfter\": \"{0}\", \"message\": \"Too many payment requests. Please try again later.\"}",
+      "ContentType": "application/json",
+      "StatusCode": 429
+    }
+  },
+  "IpRateLimitPolicies": {
+    "IpRules": []
+  }
+}

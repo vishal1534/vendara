@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendara Buyer - 36 Wireframes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Hide scrollbars for phone screens */
+        .overflow-y-auto::-webkit-scrollbar,
+        .overflow-x-auto::-webkit-scrollbar {
+            display: none;
+        }
+        .overflow-y-auto,
+        .overflow-x-auto {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Keep sidebar scrollbar visible */
+        .w-80.overflow-y-auto::-webkit-scrollbar {
+            display: block;
+            width: 8px;
+        }
+        .w-80.overflow-y-auto::-webkit-scrollbar-track {
+            background: #f3f4f6;
+        }
+        .w-80.overflow-y-auto::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+        .w-80.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Desktop Layout -->
+    <div class="hidden lg:flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-80 bg-white border-r border-gray-300 overflow-y-auto">
+            <div class="p-6 border-b border-gray-300">
+                <h1 class="text-2xl font-bold text-gray-900">Vendara Buyer</h1>
+                <p class="text-sm text-gray-600 mt-1">Wireframes - 36 Screens</p>
+            </div>
+            
+            <div class="p-4" id="sidebar-nav"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto p-8 bg-gray-100">
+            <div class="max-w-5xl mx-auto">
+                <div id="desktop-callout"></div>
+                <h2 id="desktop-title" class="text-xl font-bold text-gray-900 mb-4 text-center"></h2>
+                <div id="desktop-screen"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Layout -->
+    <div class="lg:hidden p-4">
+        <div class="bg-white border border-gray-300 rounded-xl p-4 mb-4">
+            <h1 class="font-bold text-gray-900 mb-3">Vendara Buyer Wireframes</h1>
+            <select id="mobile-select" class="w-full p-3 border border-gray-300 rounded-lg text-sm bg-white text-gray-900"></select>
+        </div>
+        
+        <div id="mobile-callout"></div>
+        <h2 id="mobile-title" class="text-xl font-bold text-gray-900 mb-4 text-center"></h2>
+        <div id="mobile-screen"></div>
+    </div>
+
+    <script>
+        let currentScreen = 1;
+
+        const screens = [
+            { id: 1, category: "Core", title: "01 - Home", callout: { type: "feature", title: "MVP Design Philosophy", content: "Mobile-first marketplace inspired by Urban Company & Blinkit. Focuses on visual product cards, inline quantity selectors, and sticky CTAs for quick ordering." } },
+            { id: 2, category: "Core", title: "02 - My Orders" },
+            { id: 3, category: "Core", title: "03 - Profile" },
+            { id: 4, category: "Core", title: "04 - Notifications" },
+            { id: 5, category: "Materials", title: "05 - Materials Category", callout: { type: "info", title: "Hyperlocal Model", content: "MVP serves 2-3 locality clusters in Hyderabad. Location-based availability ensures buyers only see materials Vendara can deliver to their area." } },
+            { id: 6, category: "Materials", title: "06 - Cement Details" },
+            { id: 7, category: "Materials", title: "07 - Sand Details" },
+            { id: 8, category: "Materials", title: "08 - Select Delivery Slot" },
+            { id: 9, category: "Materials", title: "09 - Cart View" },
+            { id: 10, category: "Materials", title: "10 - Checkout", callout: { type: "success", title: "Fixed Pricing & Transparency", content: "All prices are final—no vendor negotiation. Delivery charges are shown upfront. This builds trust and speeds up the checkout process." } },
+            { id: 11, category: "Materials", title: "11 - Payment Method" },
+            { id: 12, category: "Materials", title: "12 - Order Success" },
+            { id: 13, category: "Services", title: "13 - Services Category" },
+            { id: 14, category: "Services", title: "14 - Plumber Details" },
+            { id: 15, category: "Services", title: "15 - Mason Details" },
+            { id: 16, category: "Services", title: "16 - Electrician Details" },
+            { id: 17, category: "Services", title: "17 - Service Booking" },
+            { id: 18, category: "Search", title: "18 - Search" },
+            { id: 19, category: "Search", title: "19 - Search Results" },
+            { id: 20, category: "Search", title: "20 - Search No Results" },
+            { id: 21, category: "Orders", title: "21 - Order Tracking (Live)" },
+            { id: 22, category: "Orders", title: "22 - Order Delivered" },
+            { id: 23, category: "Orders", title: "23 - Order Cancelled" },
+            { id: 24, category: "Orders", title: "24 - Rate & Review" },
+            { id: 25, category: "Order Issues", title: "25 - Order Issue/Delayed" },
+            { id: 26, category: "Order Issues", title: "26 - Cancel Order" },
+            { id: 27, category: "Support", title: "27 - Contact Support" },
+            { id: 28, category: "Support", title: "28 - Help & FAQ" },
+            { id: 29, category: "Account", title: "29 - Manage Addresses" },
+            { id: 30, category: "Account", title: "30 - Add Address" },
+            { id: 31, category: "Account", title: "31 - Edit Profile" },
+            { id: 32, category: "Account", title: "32 - Select Location/Area", callout: { type: "warning", title: "Limited Geography = MVP Constraint", content: "Only 2-3 locality clusters shown. This allows Vendara to validate demand, build vendor density, and ensure reliable delivery before expanding to new areas." } },
+            { id: 33, category: "Empty States", title: "33 - Empty Cart" },
+            { id: 34, category: "Empty States", title: "34 - Empty Notifications" },
+            { id: 35, category: "Empty States", title: "35 - No Orders Yet" },
+            { id: 36, category: "Empty States", title: "36 - Area Not Serviceable" }
+        ];
+
+        // Callout component
+        function renderCallout(type, title, content) {
+            const colors = {
+                feature: { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-900', icon: '✨' },
+                info: { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-900', icon: 'ℹ️' },
+                success: { bg: 'bg-green-50', border: 'border-green-200', text: 'text-green-900', icon: '✓' },
+                warning: { bg: 'bg-yellow-50', border: 'border-yellow-200', text: 'text-yellow-900', icon: '⚠' },
+                note: { bg: 'bg-gray-50', border: 'border-gray-200', text: 'text-gray-900', icon: '📝' }
+            };
+            const style = colors[type] || colors.note;
+            
+            return `
+                <div class="${style.bg} ${style.border} border-2 rounded-xl p-4 mb-6 ${style.text}">
+                    <div class="flex items-start gap-3">
+                        <div class="text-2xl">${style.icon}</div>
+                        <div class="flex-1">
+                            <div class="font-bold mb-1">${title}</div>
+                            <div class="text-sm leading-relaxed">${content}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // iPhone Frame
+        function iPhoneFrame(content) {
+            return `
+                <div class="relative w-full max-w-[380px] mx-auto">
+                    <div class="bg-gray-800 rounded-[56px] p-3.5 shadow-xl border border-gray-700">
+                        <div class="absolute top-7 left-1/2 -translate-x-1/2 w-[120px] h-8 bg-black rounded-[20px] z-50"></div>
+                        <div class="bg-black rounded-[46px] overflow-hidden" style="height: 852px;">
+                            ${content}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Common Components
+        function statusBar() {
+            return `
+                <div class="flex justify-between items-center px-6 pt-14 pb-3 text-xs font-medium text-gray-900 border-b border-gray-200">
+                    <span>9:41</span>
+                    <span class="flex gap-1">
+                        <span>■■■</span>
+                        <span>▮▮▮</span>
+                    </span>
+                </div>
+            `;
+        }
+
+        function topBar(showSearch = false, cartCount = 0) {
+            return `
+                <div class="px-4 pb-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <div class="text-sm text-gray-500">Hello</div>
+                            <div class="font-bold text-2xl text-gray-900">RealServ</div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-white border-2 border-gray-300 rounded-lg flex items-center justify-center relative">
+                                <i data-lucide="shopping-cart" class="w-5 h-5 text-gray-700"></i>
+                                ${cartCount > 0 ? `<div class="absolute -top-1 -right-1 bg-gray-900 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">${cartCount}</div>` : ''}
+                            </div>
+                            <div class="w-10 h-10 bg-gray-900 border-2 border-gray-900 rounded-lg flex items-center justify-center">
+                                <i data-lucide="user" class="w-5 h-5 text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                    ${showSearch ? `
+                        <div class="relative">
+                            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                            <input type="text" placeholder="Search materials or services..." class="w-full pl-11 pr-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-sm placeholder:text-gray-400">
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function bottomNav(active = 'home') {
+            const items = [
+                { id: 'home', icon: 'home', label: 'Home' },
+                { id: 'orders', icon: 'package', label: 'Orders' },
+                { id: 'profile', icon: 'user', label: 'Profile' }
+            ];
+            return `
+                <div class="absolute bottom-0 left-0 right-0 bg-white border-t-2 border-gray-300 px-4 py-3 pb-7">
+                    <div class="flex items-center justify-around">
+                        ${items.map(item => `
+                            <button class="flex flex-col items-center py-2 px-4 ${item.id === active ? 'text-gray-900' : 'text-gray-400'}">
+                                <i data-lucide="${item.icon}" class="w-6 h-6" stroke-width="${item.id === active ? '2.5' : '2'}"></i>
+                                <span class="text-xs mt-1 font-semibold">${item.label}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function headerWithBack(title) {
+            return `
+                <div class="flex items-center justify-between px-4 py-4">
+                    <button class="w-10 h-10 bg-white border-2 border-gray-300 rounded-xl flex items-center justify-center">←</button>
+                    <h1 class="text-xl font-bold text-gray-900">${title}</h1>
+                    <div class="w-10"></div>
+                </div>
+            `;
+        }
+
+        // Screen Renderers - All 36 Screens
+        function renderScreen01() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${topBar(true, 0)}
+                    <div class="px-4 pb-24 space-y-6">
+                        <div class="bg-gray-200 border-2 border-gray-300 rounded-2xl p-6">
+                            <div class="text-sm text-gray-600 mb-1">Welcome to</div>
+                            <div class="text-2xl font-bold mb-2 text-gray-900">Vendara</div>
+                            <div class="text-sm text-gray-600">Your trusted partner for construction materials & services</div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h2 class="font-bold text-lg text-gray-900">Shop by Category</h2>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="bg-white border-2 border-gray-300 rounded-2xl p-5">
+                                    <div class="w-14 h-14 border-2 border-gray-300 rounded-xl flex items-center justify-center mb-3 bg-gray-50">
+                                        <i data-lucide="box" class="w-7 h-7 text-gray-600"></i>
+                                    </div>
+                                    <h3 class="font-bold text-lg mb-1 text-gray-900">Materials</h3>
+                                    <p class="text-sm text-gray-500">Cement, Sand & more</p>
+                                </div>
+                                <div class="bg-white border-2 border-gray-300 rounded-2xl p-5">
+                                    <div class="w-14 h-14 border-2 border-gray-300 rounded-xl flex items-center justify-center mb-3 bg-gray-50">
+                                        <i data-lucide="wrench" class="w-7 h-7 text-gray-600"></i>
+                                    </div>
+                                    <h3 class="font-bold text-lg mb-1 text-gray-900">Services</h3>
+                                    <p class="text-sm text-gray-500">Mason, Plumber, Electrician</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h2 class="font-bold text-lg text-gray-900 mb-3">Recent Orders</h2>
+                            <div class="bg-white border-2 border-gray-300 rounded-xl p-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-lg border-2 border-gray-300 flex items-center justify-center bg-gray-100">
+                                        <i data-lucide="check-circle" class="w-6 h-6 text-gray-600"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="font-semibold text-gray-900">10 Bags Cement</div>
+                                        <div class="text-sm text-gray-500">Delivered • Jan 3, 2026</div>
+                                    </div>
+                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h2 class="font-bold text-lg mb-3 text-gray-900">Why Choose RealServ?</h2>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="bg-white border border-gray-300 rounded-xl px-4 py-2">
+                                    <div class="font-semibold text-sm text-gray-900">Fixed Pricing</div>
+                                </div>
+                                <div class="bg-white border border-gray-300 rounded-xl px-4 py-2">
+                                    <div class="font-semibold text-sm text-gray-900">Quick Delivery</div>
+                                </div>
+                                <div class="bg-white border border-gray-300 rounded-xl px-4 py-2">
+                                    <div class="font-semibold text-sm text-gray-900">Quality Assured</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ${bottomNav('home')}
+                </div>
+            `;
+        }
+
+        function renderScreen02() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${topBar(false, 0)}
+                    <div class="px-4 pb-24">
+                        <h1 class="text-2xl font-bold mb-4 text-gray-900">My Orders</h1>
+                        <div class="flex gap-2 mb-4 overflow-x-auto pb-2">
+                            <button class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap border-2 bg-gray-900 text-white border-gray-900">All</button>
+                            <button class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap border-2 bg-white text-gray-600 border-gray-300">Active</button>
+                            <button class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap border-2 bg-white text-gray-600 border-gray-300">Completed</button>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl p-4">
+                                <div class="flex items-start justify-between mb-3">
+                                    <div>
+                                        <div class="text-xs text-gray-500 mb-1">Order #1236</div>
+                                        <div class="font-bold text-gray-900">1 Trolley Sand</div>
+                                    </div>
+                                    <div class="px-3 py-1.5 border-2 border-gray-600 rounded-xl flex items-center gap-1 text-gray-900">
+                                        <i data-lucide="check-circle" class="w-3 h-3"></i>
+                                        <span class="text-xs font-bold uppercase tracking-wide">confirmed</span>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-gray-500 mb-3">Jan 6, 9-12 PM</div>
+                                <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-2.5 rounded-xl text-sm font-medium">View Details</button>
+                            </div>
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl p-4">
+                                <div class="flex items-start justify-between mb-3">
+                                    <div>
+                                        <div class="text-xs text-gray-500 mb-1">Order #1234</div>
+                                        <div class="font-bold text-gray-900">10 Bags Cement</div>
+                                    </div>
+                                    <div class="px-3 py-1.5 border-2 border-gray-900 rounded-xl flex items-center gap-1 text-gray-900">
+                                        <i data-lucide="check-circle" class="w-3 h-3"></i>
+                                        <span class="text-xs font-bold uppercase tracking-wide">completed</span>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-gray-500 mb-3">Delivered • Jan 3</div>
+                                <div class="flex gap-2">
+                                    <button class="flex-1 bg-white border-2 border-gray-300 text-gray-700 py-2.5 rounded-xl text-sm font-medium">View Details</button>
+                                    <button class="flex-1 bg-gray-900 text-white py-2.5 rounded-xl text-sm font-medium">Reorder</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ${bottomNav('orders')}
+                </div>
+            `;
+        }
+
+        function renderScreen03() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${topBar(false, 0)}
+                    <div class="px-4 pb-24">
+                        <h1 class="text-2xl font-bold mb-4 text-gray-900">Profile</h1>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-16 h-16 rounded-2xl bg-gray-900 flex items-center justify-center">
+                                    <i data-lucide="user" class="w-8 h-8 text-white"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-lg text-gray-900">John Doe</div>
+                                    <div class="text-sm text-gray-500">+91 7906441952</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-xl text-sm font-medium">Edit Profile</button>
+                            <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-xl text-sm font-medium">Manage Addresses</button>
+                            <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-xl text-sm font-medium">Help & Support</button>
+                            <button class="w-full bg-gray-900 text-white py-3 rounded-xl text-sm font-medium">Logout</button>
+                        </div>
+                    </div>
+                    ${bottomNav('profile')}
+                </div>
+            `;
+        }
+
+        function renderScreen04() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${topBar(false, 0)}
+                    <div class="px-4 pb-24">
+                        <h1 class="text-2xl font-bold mb-4 text-gray-900">Notifications</h1>
+                        <div class="space-y-3">
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl border-2 border-gray-300 flex items-center justify-center bg-gray-100">
+                                    <i data-lucide="alert-circle" class="w-6 h-6 text-gray-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-gray-900">Order #1237 Confirmed</div>
+                                    <div class="text-sm text-gray-500">Jan 5, 2:30 PM</div>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl border-2 border-gray-300 flex items-center justify-center bg-gray-100">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-gray-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-gray-900">10 Bags Cement Delivered</div>
+                                    <div class="text-sm text-gray-500">Jan 3, 2026</div>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    ${bottomNav('home')}
+                </div>
+            `;
+        }
+
+        function renderScreen05() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${topBar(true, 0)}
+                    <div class="px-4 pb-24">
+                        <div class="mb-4">
+                            <h1 class="text-2xl font-bold mb-1 text-gray-900">Materials</h1>
+                            <p class="text-sm text-gray-500">Fixed prices • Quick delivery</p>
+                        </div>
+                        <div class="bg-gray-100 border-2 border-gray-300 rounded-xl p-3 mb-4 flex items-center gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-gray-600"></i>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium text-gray-900">Delivering to Miyapur</div>
+                                <div class="text-xs text-gray-600">Change location</div>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-5 h-5 text-gray-600"></i>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl overflow-hidden">
+                                <div class="aspect-square bg-gray-200 border-b-2 border-gray-300 flex items-center justify-center">
+                                    <i data-lucide="square" class="w-16 h-16 text-gray-400"></i>
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="font-bold mb-1 text-gray-900">Cement</h3>
+                                    <p class="text-sm text-gray-500 mb-3">50kg bags</p>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <div class="text-xs text-gray-500">Starting at</div>
+                                            <div class="font-bold text-lg text-gray-900">₹380</div>
+                                        </div>
+                                        <button class="bg-gray-900 text-white px-4 py-2 rounded-lg font-medium text-sm">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl overflow-hidden">
+                                <div class="aspect-square bg-gray-200 border-b-2 border-gray-300 flex items-center justify-center">
+                                    <i data-lucide="square" class="w-16 h-16 text-gray-400"></i>
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="font-bold mb-1 text-gray-900">Sand</h3>
+                                    <p class="text-sm text-gray-500 mb-3">Per trolley</p>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <div class="text-xs text-gray-500">Starting at</div>
+                                            <div class="font-bold text-lg text-gray-900">₹1,200</div>
+                                        </div>
+                                        <button class="bg-gray-900 text-white px-4 py-2 rounded-lg font-medium text-sm">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ${bottomNav('home')}
+                </div>
+            `;
+        }
+
+        function renderScreen06() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    <div class="flex items-center justify-between px-4 py-4">
+                        <button class="w-10 h-10 bg-white border-2 border-gray-300 rounded-xl flex items-center justify-center">←</button>
+                        <button class="w-10 h-10 bg-white border-2 border-gray-300 rounded-xl flex items-center justify-center">
+                            <i data-lucide="shopping-cart" class="w-5 h-5 text-gray-700"></i>
+                        </button>
+                    </div>
+                    <div class="px-4 pb-24">
+                        <div class="aspect-square bg-gray-200 border-2 border-gray-300 rounded-3xl flex items-center justify-center mb-6">
+                            <i data-lucide="square" class="w-32 h-32 text-gray-400"></i>
+                        </div>
+                        <div class="mb-6">
+                            <h1 class="text-3xl font-bold mb-2 text-gray-900">Cement</h1>
+                            <p class="text-gray-600 mb-4">Premium quality cement bags (50kg each)</p>
+                            <div class="flex items-baseline gap-2 mb-6">
+                                <span class="text-4xl font-bold text-gray-900">₹380</span>
+                                <span class="text-gray-500">per bag</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 mb-6">
+                                <div class="bg-white border-2 border-gray-300 rounded-xl p-3">
+                                    <div class="text-xl mb-1">⚡</div>
+                                    <div class="text-sm font-medium text-gray-900">Fast Delivery</div>
+                                    <div class="text-xs text-gray-500">Same day slots</div>
+                                </div>
+                                <div class="bg-white border-2 border-gray-300 rounded-xl p-3">
+                                    <div class="text-xl mb-1">✓</div>
+                                    <div class="text-sm font-medium text-gray-900">Guaranteed</div>
+                                    <div class="text-xs text-gray-500">100% genuine</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="font-semibold text-gray-900">Quantity</span>
+                                <span class="text-sm text-gray-500">Min: 2 • Max: 10</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <button class="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center">
+                                    <i data-lucide="minus" class="w-5 h-5 text-white"></i>
+                                </button>
+                                <div class="text-4xl font-bold text-gray-900">5</div>
+                                <button class="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center">
+                                    <i data-lucide="plus" class="w-5 h-5 text-white"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-white">
+                        <button class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl">Add to Cart • ₹1,900</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen07() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    <div class="flex items-center justify-between px-4 py-4">
+                        <button class="w-10 h-10 bg-white border-2 border-gray-300 rounded-xl flex items-center justify-center">←</button>
+                        <button class="w-10 h-10 bg-white border-2 border-gray-300 rounded-xl flex items-center justify-center">
+                            <i data-lucide="shopping-cart" class="w-5 h-5 text-gray-700"></i>
+                        </button>
+                    </div>
+                    <div class="px-4 pb-24">
+                        <div class="aspect-square bg-gray-200 border-2 border-gray-300 rounded-3xl flex items-center justify-center mb-6">
+                            <i data-lucide="square" class="w-32 h-32 text-gray-400"></i>
+                        </div>
+                        <div class="mb-6">
+                            <h1 class="text-3xl font-bold mb-2 text-gray-900">Sand</h1>
+                            <p class="text-gray-600 mb-4">Premium quality sand (per trolley)</p>
+                            <div class="flex items-baseline gap-2 mb-6">
+                                <span class="text-4xl font-bold text-gray-900">₹1,200</span>
+                                <span class="text-gray-500">per trolley</span>
+                            </div>
+                        </div>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="font-semibold text-gray-900">Quantity</span>
+                                <span class="text-sm text-gray-500">Min: 1 • Max: 5</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <button class="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center">
+                                    <i data-lucide="minus" class="w-5 h-5 text-white"></i>
+                                </button>
+                                <div class="text-4xl font-bold text-gray-900">1</div>
+                                <button class="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center">
+                                    <i data-lucide="plus" class="w-5 h-5 text-white"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-white">
+                        <button class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl">Add to Cart • ₹1,200</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen08() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Select Delivery Slot')}
+                    <div class="px-4 pb-24">
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-3">
+                            <div class="flex items-center gap-2 mb-3">
+                                <i data-lucide="calendar" class="w-5 h-5 text-gray-600"></i>
+                                <span class="font-semibold text-gray-900">Select Date</span>
+                            </div>
+                            <input type="date" value="2026-01-06" class="w-full bg-white border-2 border-gray-300 rounded-xl p-3 text-sm">
+                        </div>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-3">
+                            <div class="font-semibold mb-3 text-gray-900">Select Time Window</div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button class="p-3 rounded-xl text-sm font-medium bg-white border-2 border-gray-300 text-gray-700">9:00 - 12:00</button>
+                                <button class="p-3 rounded-xl text-sm font-medium bg-gray-900 border-2 border-gray-900 text-white">12:00 - 3:00</button>
+                                <button class="p-3 rounded-xl text-sm font-medium bg-white border-2 border-gray-300 text-gray-700">3:00 - 6:00</button>
+                                <button class="p-3 rounded-xl text-sm font-medium bg-white border-2 border-gray-300 text-gray-400 opacity-50 line-through">6:00 - 9:00</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-white">
+                        <button class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl">Continue to Checkout</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen09() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Cart')}
+                    <div class="px-4 pb-24">
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-3">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-16 h-16 rounded-xl bg-gray-200 border-2 border-gray-300 flex items-center justify-center">
+                                    <i data-lucide="square" class="w-8 h-8 text-gray-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-gray-900">Cement</div>
+                                    <div class="text-sm text-gray-500">5 bags × ₹380</div>
+                                </div>
+                                <div class="font-bold text-gray-900">₹1,900</div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button class="w-8 h-8 bg-white border-2 border-gray-300 rounded-lg flex items-center justify-center">
+                                    <i data-lucide="minus" class="w-4 h-4"></i>
+                                </button>
+                                <span class="font-bold text-gray-900 px-3">5</span>
+                                <button class="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center">
+                                    <i data-lucide="plus" class="w-4 h-4 text-white"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-white">
+                        <button class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl">Select Delivery Slot</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen10() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Checkout')}
+                    <div class="px-4 pb-24">
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-3">
+                            <div class="flex items-center gap-2 mb-3">
+                                <i data-lucide="calendar" class="w-5 h-5 text-gray-600"></i>
+                                <span class="font-semibold text-gray-900">Delivery Slot</span>
+                            </div>
+                            <div class="bg-gray-100 border border-gray-300 p-3 rounded-xl">
+                                <div class="font-semibold text-gray-900">Tomorrow, Jan 6</div>
+                                <div class="text-sm text-gray-600">12:00 PM - 3:00 PM</div>
+                            </div>
+                        </div>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-3">
+                            <div class="flex items-center gap-2 mb-3">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-gray-600"></i>
+                                <span class="font-semibold text-gray-900">Delivery Address</span>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-300 p-3 rounded-xl">
+                                <div class="font-semibold text-gray-900">Plot 45, Sai Nagar</div>
+                                <div class="text-sm text-gray-600">Miyapur, Hyderabad</div>
+                                <div class="text-sm text-gray-600">+91 7906441952</div>
+                            </div>
+                        </div>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4">
+                            <div class="font-semibold mb-4 text-gray-900">Order Summary</div>
+                            <div class="pb-4 border-b-2 border-gray-200">
+                                <div class="flex gap-3 items-center">
+                                    <div class="w-16 h-16 bg-gray-200 border-2 border-gray-300 rounded-xl flex items-center justify-center">
+                                        <i data-lucide="square" class="w-8 h-8 text-gray-400"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="font-semibold text-gray-900">Cement</div>
+                                        <div class="text-sm text-gray-600">5 bags × ₹380</div>
+                                    </div>
+                                    <div class="font-bold text-gray-900">₹1,900</div>
+                                </div>
+                            </div>
+                            <div class="pt-3">
+                                <div class="flex justify-between mb-2 text-sm">
+                                    <span class="text-gray-600">Subtotal</span>
+                                    <span class="font-semibold text-gray-900">₹1,900</span>
+                                </div>
+                                <div class="flex justify-between mb-3 text-sm">
+                                    <span class="text-gray-600">Delivery</span>
+                                    <span class="font-semibold text-gray-900">₹100</span>
+                                </div>
+                                <div class="flex justify-between pt-3 border-t-2 border-gray-200">
+                                    <span class="font-bold text-gray-900">Total</span>
+                                    <span class="font-bold text-xl text-gray-900">₹2,000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-white">
+                        <button class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl">Place Order • ₹2,000</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen11() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Payment Method')}
+                    <div class="px-4 pb-24">
+                        <div class="space-y-3">
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 flex items-center gap-3">
+                                <div class="w-12 h-12 bg-gray-100 border-2 border-gray-300 rounded-xl flex items-center justify-center">
+                                    <i data-lucide="credit-card" class="w-6 h-6 text-gray-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-gray-900">Credit/Debit Card</div>
+                                    <div class="text-sm text-gray-500">Visa, MasterCard, etc.</div>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 flex items-center gap-3">
+                                <div class="w-12 h-12 bg-gray-100 border-2 border-gray-300 rounded-xl flex items-center justify-center">
+                                    <i data-lucide="banknote" class="w-6 h-6 text-gray-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-gray-900">Net Banking</div>
+                                    <div class="text-sm text-gray-500">ICICI, HDFC, etc.</div>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 flex items-center gap-3">
+                                <div class="w-12 h-12 bg-gray-100 border-2 border-gray-300 rounded-xl flex items-center justify-center">
+                                    <i data-lucide="wallet" class="w-6 h-6 text-gray-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-gray-900">Wallet</div>
+                                    <div class="text-sm text-gray-500">Paytm, Google Pay, etc.</div>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-white">
+                        <button class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl">Place Order • ₹2,000</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen12() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto flex flex-col items-center justify-center text-center px-4">
+                    ${statusBar()}
+                    <div class="flex-1 flex flex-col items-center justify-center pb-16">
+                        <div class="w-24 h-24 bg-gray-900 rounded-full flex items-center justify-center mb-6">
+                            <i data-lucide="check-circle" class="w-16 h-16 text-white"></i>
+                        </div>
+                        <h1 class="text-3xl font-bold mb-2 text-gray-900">Order Placed!</h1>
+                        <p class="text-gray-600 mb-8">Your order has been confirmed</p>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-6 w-full mb-6">
+                            <div class="text-sm text-gray-500 mb-2">Order ID</div>
+                            <div class="text-2xl font-bold mb-4 text-gray-900">#1237</div>
+                            <div class="bg-gray-100 border border-gray-300 rounded-xl p-4 mb-4">
+                                <div class="font-semibold mb-2 text-gray-900">5 Bags Cement</div>
+                                <div class="text-sm text-gray-600">Jan 6, 12:00 - 3:00 PM</div>
+                                <div class="text-sm text-gray-600">Total: ₹2,000</div>
+                            </div>
+                            <div class="bg-gray-100 border border-gray-300 p-3 rounded-xl text-sm text-gray-700">
+                                ✓ We'll notify you once delivery is confirmed
+                            </div>
+                        </div>
+                        <button class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl mb-3">Track Order</button>
+                        <button class="w-full border-2 border-gray-300 text-gray-700 font-bold py-4 rounded-xl">Back to Home</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen13() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${topBar(true, 0)}
+                    <div class="px-4 pb-24">
+                        <div class="mb-4">
+                            <h1 class="text-2xl font-bold mb-1 text-gray-900">Services</h1>
+                            <p class="text-sm text-gray-500">Professional • Verified • On-time</p>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 flex gap-4">
+                                <div class="w-20 h-20 rounded-xl border-2 border-gray-300 flex items-center justify-center bg-gray-100 flex-shrink-0">
+                                    <i data-lucide="hammer" class="w-10 h-10 text-gray-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold mb-1 text-gray-900">Mason</h3>
+                                    <p class="text-sm text-gray-500 mb-2">Brickwork, plastering, tiling</p>
+                                    <div class="font-bold text-gray-900">From ₹800</div>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400 self-center"></i>
+                            </div>
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 flex gap-4">
+                                <div class="w-20 h-20 rounded-xl border-2 border-gray-300 flex items-center justify-center bg-gray-100 flex-shrink-0">
+                                    <i data-lucide="wrench" class="w-10 h-10 text-gray-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold mb-1 text-gray-900">Plumber</h3>
+                                    <p class="text-sm text-gray-500 mb-2">Pipe fitting, repairs, installations</p>
+                                    <div class="font-bold text-gray-900">From ₹800</div>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400 self-center"></i>
+                            </div>
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 flex gap-4">
+                                <div class="w-20 h-20 rounded-xl border-2 border-gray-300 flex items-center justify-center bg-gray-100 flex-shrink-0">
+                                    <i data-lucide="zap" class="w-10 h-10 text-gray-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold mb-1 text-gray-900">Electrician</h3>
+                                    <p class="text-sm text-gray-500 mb-2">Wiring, fittings, repairs</p>
+                                    <div class="font-bold text-gray-900">From ₹800</div>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400 self-center"></i>
+                            </div>
+                        </div>
+                    </div>
+                    ${bottomNav('home')}
+                </div>
+            `;
+        }
+
+        function renderScreen14() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    <div class="flex items-center justify-between px-4 py-4">
+                        <button class="w-10 h-10 bg-white border-2 border-gray-300 rounded-xl flex items-center justify-center">←</button>
+                        <div class="w-10"></div>
+                    </div>
+                    <div class="px-4 pb-24">
+                        <div class="aspect-square bg-gray-200 border-2 border-gray-300 rounded-3xl flex items-center justify-center mb-6">
+                            <i data-lucide="wrench" class="w-32 h-32 text-gray-400"></i>
+                        </div>
+                        <div class="mb-6">
+                            <h1 class="text-3xl font-bold mb-2 text-gray-900">Plumber</h1>
+                            <p class="text-gray-600 mb-6">Professional plumbing services for your construction needs</p>
+                            <div class="space-y-3 mb-6">
+                                <div class="bg-white border-2 border-gray-900 rounded-2xl p-4">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <div>
+                                            <div class="font-bold text-lg text-gray-900">Full Day</div>
+                                            <div class="text-sm text-gray-600">9 AM - 6 PM (8 hours)</div>
+                                        </div>
+                                        <div class="w-6 h-6 rounded-full border-2 border-gray-900 bg-gray-900 flex items-center justify-center">
+                                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                                        </div>
+                                    </div>
+                                    <div class="text-2xl font-bold text-gray-900">₹1,500</div>
+                                </div>
+                                <div class="bg-white border-2 border-gray-300 rounded-2xl p-4">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <div>
+                                            <div class="font-bold text-lg text-gray-900">Half Day</div>
+                                            <div class="text-sm text-gray-600">4 hours (flexible timing)</div>
+                                        </div>
+                                        <div class="w-6 h-6 rounded-full border-2 border-gray-300"></div>
+                                    </div>
+                                    <div class="text-2xl font-bold text-gray-700">₹800</div>
+                                </div>
+                            </div>
+                            <div class="bg-gray-100 border-2 border-gray-300 rounded-2xl p-4">
+                                <h3 class="font-bold mb-3 text-gray-900">What's Included</h3>
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-2 text-sm">
+                                        <i data-lucide="check-circle" class="w-5 h-5 text-gray-600"></i>
+                                        <span class="text-gray-700">Skilled & verified plumber</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm">
+                                        <i data-lucide="check-circle" class="w-5 h-5 text-gray-600"></i>
+                                        <span class="text-gray-700">Basic tools & equipment</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm">
+                                        <i data-lucide="check-circle" class="w-5 h-5 text-gray-600"></i>
+                                        <span class="text-gray-700">Insurance covered</span>
+                                    </div>
+                                </div>
+                                <div class="mt-3 pt-3 border-t border-gray-300 text-sm text-gray-600">
+                                    ⚠ Materials not included
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-white">
+                        <button class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl">Book Now • ₹1,500</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen15() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    <div class="flex items-center justify-between px-4 py-4">
+                        <button class="w-10 h-10 bg-white border-2 border-gray-300 rounded-xl flex items-center justify-center">←</button>
+                        <div class="w-10"></div>
+                    </div>
+                    <div class="px-4 pb-24">
+                        <div class="aspect-square bg-gray-200 border-2 border-gray-300 rounded-3xl flex items-center justify-center mb-6">
+                            <i data-lucide="hammer" class="w-32 h-32 text-gray-400"></i>
+                        </div>
+                        <div class="mb-6">
+                            <h1 class="text-3xl font-bold mb-2 text-gray-900">Mason</h1>
+                            <p class="text-gray-600 mb-6">Professional masonry services - brickwork, plastering, tiling</p>
+                            <div class="space-y-3 mb-6">
+                                <div class="bg-white border-2 border-gray-900 rounded-2xl p-4">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <div>
+                                            <div class="font-bold text-lg text-gray-900">Full Day</div>
+                                            <div class="text-sm text-gray-600">9 AM - 6 PM (8 hours)</div>
+                                        </div>
+                                        <div class="w-6 h-6 rounded-full border-2 border-gray-900 bg-gray-900 flex items-center justify-center">
+                                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                                        </div>
+                                    </div>
+                                    <div class="text-2xl font-bold text-gray-900">₹1,500</div>
+                                </div>
+                                <div class="bg-white border-2 border-gray-300 rounded-2xl p-4">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <div>
+                                            <div class="font-bold text-lg text-gray-900">Half Day</div>
+                                            <div class="text-sm text-gray-600">4 hours (flexible timing)</div>
+                                        </div>
+                                        <div class="w-6 h-6 rounded-full border-2 border-gray-300"></div>
+                                    </div>
+                                    <div class="text-2xl font-bold text-gray-700">₹800</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-white">
+                        <button class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl">Book Now • ₹1,500</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen16() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    <div class="flex items-center justify-between px-4 py-4">
+                        <button class="w-10 h-10 bg-white border-2 border-gray-300 rounded-xl flex items-center justify-center">←</button>
+                        <div class="w-10"></div>
+                    </div>
+                    <div class="px-4 pb-24">
+                        <div class="aspect-square bg-gray-200 border-2 border-gray-300 rounded-3xl flex items-center justify-center mb-6">
+                            <i data-lucide="zap" class="w-32 h-32 text-gray-400"></i>
+                        </div>
+                        <div class="mb-6">
+                            <h1 class="text-3xl font-bold mb-2 text-gray-900">Electrician</h1>
+                            <p class="text-gray-600 mb-6">Professional electrical services - wiring, fittings, repairs</p>
+                            <div class="space-y-3 mb-6">
+                                <div class="bg-white border-2 border-gray-900 rounded-2xl p-4">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <div>
+                                            <div class="font-bold text-lg text-gray-900">Full Day</div>
+                                            <div class="text-sm text-gray-600">9 AM - 6 PM (8 hours)</div>
+                                        </div>
+                                        <div class="w-6 h-6 rounded-full border-2 border-gray-900 bg-gray-900 flex items-center justify-center">
+                                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                                        </div>
+                                    </div>
+                                    <div class="text-2xl font-bold text-gray-900">₹1,500</div>
+                                </div>
+                                <div class="bg-white border-2 border-gray-300 rounded-2xl p-4">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <div>
+                                            <div class="font-bold text-lg text-gray-900">Half Day</div>
+                                            <div class="text-sm text-gray-600">4 hours (flexible timing)</div>
+                                        </div>
+                                        <div class="w-6 h-6 rounded-full border-2 border-gray-300"></div>
+                                    </div>
+                                    <div class="text-2xl font-bold text-gray-700">₹800</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-white">
+                        <button class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl">Book Now • ₹1,500</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen17() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Book Service')}
+                    <div class="px-4 pb-24">
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-3">
+                            <div class="flex items-center gap-2 mb-3">
+                                <i data-lucide="calendar" class="w-5 h-5 text-gray-600"></i>
+                                <span class="font-semibold text-gray-900">Select Date</span>
+                            </div>
+                            <input type="date" value="2026-01-07" class="w-full bg-white border-2 border-gray-300 rounded-xl p-3 text-sm">
+                        </div>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-3">
+                            <div class="flex items-center gap-2 mb-3">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-gray-600"></i>
+                                <span class="font-semibold text-gray-900">Work Location</span>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-300 rounded-xl p-3">
+                                <div class="font-medium text-gray-900">Plot 45, Sai Nagar</div>
+                                <div class="text-sm text-gray-600">Miyapur, Hyderabad</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-white">
+                        <button class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl">Confirm Booking • ₹1,500</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen18() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    <div class="px-4 pb-4">
+                        <div class="flex items-center gap-3 mb-4">
+                            <button class="w-10 h-10 bg-white border-2 border-gray-300 rounded-xl flex items-center justify-center">←</button>
+                            <div class="flex-1 relative">
+                                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <input type="text" placeholder="Search materials or services..." class="w-full pl-11 pr-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-sm placeholder:text-gray-400" autofocus>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-24">
+                        <h2 class="font-bold text-lg mb-3 text-gray-900">Popular Searches</h2>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="px-4 py-2 bg-white border-2 border-gray-300 rounded-xl text-sm font-medium text-gray-700">Cement</button>
+                            <button class="px-4 py-2 bg-white border-2 border-gray-300 rounded-xl text-sm font-medium text-gray-700">Sand</button>
+                            <button class="px-4 py-2 bg-white border-2 border-gray-300 rounded-xl text-sm font-medium text-gray-700">Mason</button>
+                            <button class="px-4 py-2 bg-white border-2 border-gray-300 rounded-xl text-sm font-medium text-gray-700">Plumber</button>
+                        </div>
+                    </div>
+                    ${bottomNav('home')}
+                </div>
+            `;
+        }
+
+        function renderScreen19() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    <div class="px-4 pb-4">
+                        <div class="flex items-center gap-3 mb-4">
+                            <button class="w-10 h-10 bg-white border-2 border-gray-300 rounded-xl flex items-center justify-center">←</button>
+                            <div class="flex-1 relative">
+                                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <input type="text" value="cement" class="w-full pl-11 pr-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-24">
+                        <h2 class="text-sm text-gray-600 mb-3">Found 1 result</h2>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 flex gap-4">
+                            <div class="w-20 h-20 rounded-xl border-2 border-gray-300 flex items-center justify-center bg-gray-100">
+                                <i data-lucide="square" class="w-10 h-10 text-gray-400"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold mb-1 text-gray-900">Cement</h3>
+                                <p class="text-sm text-gray-500 mb-2">50kg bags</p>
+                                <div class="font-bold text-gray-900">From ₹380</div>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400 self-center"></i>
+                        </div>
+                    </div>
+                    ${bottomNav('home')}
+                </div>
+            `;
+        }
+
+        function renderScreen20() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    <div class="px-4 pb-4">
+                        <div class="flex items-center gap-3 mb-4">
+                            <button class="w-10 h-10 bg-white border-2 border-gray-300 rounded-xl flex items-center justify-center">←</button>
+                            <div class="flex-1 relative">
+                                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <input type="text" value="xyz" class="w-full pl-11 pr-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-24 flex flex-col items-center justify-center pt-16">
+                        <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                            <i data-lucide="search" class="w-12 h-12 text-gray-400"></i>
+                        </div>
+                        <h2 class="text-xl font-bold mb-2 text-gray-900">No results found</h2>
+                        <p class="text-gray-600 text-center mb-6">We couldn't find anything matching "xyz"</p>
+                        <h3 class="font-bold text-sm mb-2 text-gray-900">Try searching for:</h3>
+                        <div class="flex flex-wrap gap-2 justify-center">
+                            <button class="px-4 py-2 bg-white border-2 border-gray-300 rounded-xl text-sm font-medium text-gray-700">Cement</button>
+                            <button class="px-4 py-2 bg-white border-2 border-gray-300 rounded-xl text-sm font-medium text-gray-700">Sand</button>
+                            <button class="px-4 py-2 bg-white border-2 border-gray-300 rounded-xl text-sm font-medium text-gray-700">Mason</button>
+                        </div>
+                    </div>
+                    ${bottomNav('home')}
+                </div>
+            `;
+        }
+
+        function renderScreen21() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Order Tracking')}
+                    <div class="px-4 pb-24">
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <div class="text-xs text-gray-500 mb-1">Order #1236</div>
+                            <div class="font-bold text-lg text-gray-900 mb-2">1 Trolley Sand</div>
+                            <div class="px-3 py-1.5 border-2 border-gray-700 rounded-xl inline-flex items-center gap-1 text-gray-900">
+                                <i data-lucide="loader" class="w-3 h-3"></i>
+                                <span class="text-xs font-bold uppercase tracking-wide">In Progress</span>
+                            </div>
+                        </div>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <h3 class="font-semibold mb-4 text-gray-900">Order Status</h3>
+                            <div class="space-y-4">
+                                <div class="flex gap-3">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center">
+                                            <i data-lucide="check" class="w-5 h-5 text-white"></i>
+                                        </div>
+                                        <div class="flex-1 w-0.5 bg-gray-900 mt-2" style="height: 40px;"></div>
+                                    </div>
+                                    <div class="flex-1 pb-2">
+                                        <div class="font-semibold text-gray-900">Order Confirmed</div>
+                                        <div class="text-sm text-gray-500">Jan 6, 9:00 AM</div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center">
+                                            <i data-lucide="loader" class="w-5 h-5 text-white"></i>
+                                        </div>
+                                        <div class="flex-1 w-0.5 bg-gray-300 mt-2" style="height: 40px;"></div>
+                                    </div>
+                                    <div class="flex-1 pb-2">
+                                        <div class="font-semibold text-gray-900">Out for Delivery</div>
+                                        <div class="text-sm text-gray-500">Estimated: 10:30 AM</div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3">
+                                    <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                                        <i data-lucide="check-circle" class="w-5 h-5 text-gray-400"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="font-semibold text-gray-500">Delivered</div>
+                                        <div class="text-sm text-gray-400">Pending</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-xl font-medium mb-2">Contact Support</button>
+                        <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-xl font-medium">Cancel Order</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen22() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Order Details')}
+                    <div class="px-4 pb-24">
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <div class="text-xs text-gray-500 mb-1">Order #1234</div>
+                            <div class="font-bold text-lg text-gray-900 mb-2">10 Bags Cement</div>
+                            <div class="px-3 py-1.5 border-2 border-gray-900 rounded-xl inline-flex items-center gap-1 text-gray-900">
+                                <i data-lucide="check-circle" class="w-3 h-3"></i>
+                                <span class="text-xs font-bold uppercase tracking-wide">Delivered</span>
+                            </div>
+                        </div>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <div class="font-semibold mb-3 text-gray-900">Delivery Details</div>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Delivered on</span>
+                                    <span class="font-medium text-gray-900">Jan 3, 2026</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Time slot</span>
+                                    <span class="font-medium text-gray-900">12:00 - 3:00 PM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Total paid</span>
+                                    <span class="font-medium text-gray-900">₹3,900</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-gray-900 text-white py-3 rounded-xl font-medium mb-2">Rate & Review</button>
+                        <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-xl font-medium">Reorder</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen23() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Order Details')}
+                    <div class="px-4 pb-24">
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <div class="text-xs text-gray-500 mb-1">Order #1235</div>
+                            <div class="font-bold text-lg text-gray-900 mb-2">Mason - Full Day</div>
+                            <div class="px-3 py-1.5 border-2 border-gray-400 rounded-xl inline-flex items-center gap-1 text-gray-700">
+                                <i data-lucide="x-circle" class="w-3 h-3"></i>
+                                <span class="text-xs font-bold uppercase tracking-wide">Cancelled</span>
+                            </div>
+                        </div>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <div class="font-semibold mb-3 text-gray-900">Cancellation Details</div>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Cancelled on</span>
+                                    <span class="font-medium text-gray-900">Jan 5, 2026</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Reason</span>
+                                    <span class="font-medium text-gray-900">Changed plans</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Refund status</span>
+                                    <span class="font-medium text-gray-900">Processed</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-gray-900 text-white py-3 rounded-xl font-medium">Back to Home</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen24() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Rate & Review')}
+                    <div class="px-4 pb-24">
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <div class="text-xs text-gray-500 mb-1">Order #1234</div>
+                            <div class="font-bold text-gray-900">10 Bags Cement</div>
+                        </div>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <div class="font-semibold mb-3 text-gray-900">How was your experience?</div>
+                            <div class="flex justify-center gap-3 mb-4">
+                                <button class="text-4xl">⭐</button>
+                                <button class="text-4xl">⭐</button>
+                                <button class="text-4xl">⭐</button>
+                                <button class="text-4xl">⭐</button>
+                                <button class="text-4xl text-gray-300">⭐</button>
+                            </div>
+                        </div>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <div class="font-semibold mb-3 text-gray-900">Write a review (optional)</div>
+                            <textarea class="w-full bg-white border-2 border-gray-300 rounded-xl p-3 text-sm" rows="4" placeholder="Share your experience..."></textarea>
+                        </div>
+                        <button class="w-full bg-gray-900 text-white py-4 rounded-xl font-bold">Submit Review</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen25() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Report Issue')}
+                    <div class="px-4 pb-24">
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <div class="text-xs text-gray-500 mb-1">Order #1236</div>
+                            <div class="font-bold text-gray-900">1 Trolley Sand</div>
+                        </div>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <div class="font-semibold mb-3 text-gray-900">What's the issue?</div>
+                            <div class="space-y-2">
+                                <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-xl text-sm font-medium text-left px-4">Order delayed</button>
+                                <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-xl text-sm font-medium text-left px-4">Wrong item delivered</button>
+                                <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-xl text-sm font-medium text-left px-4">Quality issues</button>
+                                <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-xl text-sm font-medium text-left px-4">Other</button>
+                            </div>
+                        </div>
+                        <button class="w-full bg-gray-900 text-white py-4 rounded-xl font-bold">Continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen26() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Cancel Order')}
+                    <div class="px-4 pb-24">
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <div class="text-xs text-gray-500 mb-1">Order #1236</div>
+                            <div class="font-bold text-gray-900">1 Trolley Sand</div>
+                        </div>
+                        <div class="bg-yellow-50 border-2 border-yellow-200 rounded-2xl p-4 mb-4">
+                            <div class="font-bold mb-2 text-yellow-900">⚠ Cancellation Policy</div>
+                            <div class="text-sm text-yellow-800">Free cancellation available up to 2 hours before delivery slot. Refund will be processed in 3-5 business days.</div>
+                        </div>
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <div class="font-semibold mb-3 text-gray-900">Why are you cancelling?</div>
+                            <div class="space-y-2">
+                                <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-xl text-sm font-medium text-left px-4">Changed my mind</button>
+                                <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-xl text-sm font-medium text-left px-4">Found cheaper elsewhere</button>
+                                <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-xl text-sm font-medium text-left px-4">Ordered by mistake</button>
+                                <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-xl text-sm font-medium text-left px-4">Other</button>
+                            </div>
+                        </div>
+                        <button class="w-full bg-gray-900 text-white py-4 rounded-xl font-bold mb-2">Cancel Order</button>
+                        <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-4 rounded-xl font-bold">Keep Order</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen27() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Contact Support')}
+                    <div class="px-4 pb-24">
+                        <div class="bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <div class="font-semibold mb-3 text-gray-900">How can we help?</div>
+                            <div class="space-y-3">
+                                <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-4 rounded-xl font-medium flex items-center gap-3 px-4">
+                                    <i data-lucide="phone" class="w-5 h-5"></i>
+                                    <div class="flex-1 text-left">
+                                        <div class="font-bold text-gray-900">Call Us</div>
+                                        <div class="text-sm text-gray-500">+91 7906441952</div>
+                                    </div>
+                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                                </button>
+                                <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-4 rounded-xl font-medium flex items-center gap-3 px-4">
+                                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                                    <div class="flex-1 text-left">
+                                        <div class="font-bold text-gray-900">WhatsApp</div>
+                                        <div class="text-sm text-gray-500">Chat with us</div>
+                                    </div>
+                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                                </button>
+                                <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-4 rounded-xl font-medium flex items-center gap-3 px-4">
+                                    <i data-lucide="mail" class="w-5 h-5"></i>
+                                    <div class="flex-1 text-left">
+                                        <div class="font-bold text-gray-900">Email</div>
+                                        <div class="text-sm text-gray-500">support@realserv.com</div>
+                                    </div>
+                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen28() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Help & FAQ')}
+                    <div class="px-4 pb-24">
+                        <div class="relative mb-4">
+                            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                            <input type="text" placeholder="Search for help..." class="w-full pl-11 pr-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-sm">
+                        </div>
+                        <div class="space-y-3">
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl p-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="font-bold text-gray-900">How to place an order?</div>
+                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                                </div>
+                            </div>
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl p-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="font-bold text-gray-900">Delivery & slot timings</div>
+                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                                </div>
+                            </div>
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl p-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="font-bold text-gray-900">Payment methods</div>
+                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                                </div>
+                            </div>
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl p-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="font-bold text-gray-900">Cancellation & refunds</div>
+                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen29() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Manage Addresses')}
+                    <div class="px-4 pb-24">
+                        <div class="space-y-3 mb-4">
+                            <div class="bg-white border-2 border-gray-900 rounded-2xl p-4">
+                                <div class="flex items-start justify-between mb-2">
+                                    <div class="flex-1">
+                                        <div class="font-bold text-gray-900 mb-1">Home</div>
+                                        <div class="text-sm text-gray-600">Plot 45, Sai Nagar</div>
+                                        <div class="text-sm text-gray-600">Miyapur, Hyderabad - 500049</div>
+                                        <div class="text-sm text-gray-600">+91 7906441952</div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 mt-3">
+                                    <button class="flex-1 bg-white border-2 border-gray-300 text-gray-700 py-2 rounded-lg text-sm font-medium">Edit</button>
+                                    <button class="flex-1 bg-white border-2 border-gray-300 text-gray-700 py-2 rounded-lg text-sm font-medium">Remove</button>
+                                </div>
+                            </div>
+                            <div class="bg-white border-2 border-gray-300 rounded-2xl p-4">
+                                <div class="flex items-start justify-between mb-2">
+                                    <div class="flex-1">
+                                        <div class="font-bold text-gray-900 mb-1">Office</div>
+                                        <div class="text-sm text-gray-600">Plot 12, Tech Park</div>
+                                        <div class="text-sm text-gray-600">HITEC City, Hyderabad - 500081</div>
+                                        <div class="text-sm text-gray-600">+91 7906441952</div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 mt-3">
+                                    <button class="flex-1 bg-white border-2 border-gray-300 text-gray-700 py-2 rounded-lg text-sm font-medium">Edit</button>
+                                    <button class="flex-1 bg-white border-2 border-gray-300 text-gray-700 py-2 rounded-lg text-sm font-medium">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-gray-900 text-white py-4 rounded-xl font-bold">+ Add New Address</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen30() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Add Address')}
+                    <div class="px-4 pb-24">
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-900 mb-2">Label</label>
+                                <input type="text" placeholder="e.g. Home, Office" class="w-full bg-white border-2 border-gray-300 rounded-xl p-3 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-900 mb-2">Plot/House Number</label>
+                                <input type="text" placeholder="Plot 45" class="w-full bg-white border-2 border-gray-300 rounded-xl p-3 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-900 mb-2">Street/Colony</label>
+                                <input type="text" placeholder="Sai Nagar" class="w-full bg-white border-2 border-gray-300 rounded-xl p-3 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-900 mb-2">Locality</label>
+                                <input type="text" placeholder="Miyapur" class="w-full bg-white border-2 border-gray-300 rounded-xl p-3 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-900 mb-2">Pincode</label>
+                                <input type="text" placeholder="500049" class="w-full bg-white border-2 border-gray-300 rounded-xl p-3 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-900 mb-2">Phone Number</label>
+                                <input type="tel" placeholder="+91 7906441952" class="w-full bg-white border-2 border-gray-300 rounded-xl p-3 text-sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-white">
+                        <button class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl">Save Address</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen31() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Edit Profile')}
+                    <div class="px-4 pb-24">
+                        <div class="flex flex-col items-center mb-6">
+                            <div class="w-24 h-24 rounded-full bg-gray-900 flex items-center justify-center mb-3">
+                                <i data-lucide="user" class="w-12 h-12 text-white"></i>
+                            </div>
+                            <button class="text-sm font-medium text-gray-700 underline">Change Photo</button>
+                        </div>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-900 mb-2">Full Name</label>
+                                <input type="text" value="John Doe" class="w-full bg-white border-2 border-gray-300 rounded-xl p-3 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-900 mb-2">Phone Number</label>
+                                <input type="tel" value="+91 7906441952" class="w-full bg-white border-2 border-gray-300 rounded-xl p-3 text-sm bg-gray-50" disabled>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-900 mb-2">Email (optional)</label>
+                                <input type="email" placeholder="john@example.com" class="w-full bg-white border-2 border-gray-300 rounded-xl p-3 text-sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-white">
+                        <button class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl">Save Changes</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen32() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Select Location')}
+                    <div class="px-4 pb-24">
+                        <div class="bg-gray-100 border-2 border-gray-300 rounded-xl p-4 mb-4">
+                            <div class="text-sm font-medium text-gray-900 mb-1">Current Location</div>
+                            <div class="text-sm text-gray-600">Miyapur, Hyderabad</div>
+                        </div>
+                        <div class="font-semibold mb-3 text-gray-900">Available Areas</div>
+                        <div class="space-y-2">
+                            <button class="w-full bg-white border-2 border-gray-900 text-gray-900 py-4 rounded-xl font-medium text-left px-4 flex items-center justify-between">
+                                <span>Miyapur</span>
+                                <i data-lucide="check" class="w-5 h-5"></i>
+                            </button>
+                            <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-4 rounded-xl font-medium text-left px-4">
+                                Kukatpally
+                            </button>
+                            <button class="w-full bg-white border-2 border-gray-300 text-gray-700 py-4 rounded-xl font-medium text-left px-4">
+                                KPHB
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen33() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Cart')}
+                    <div class="px-4 pb-24 flex flex-col items-center justify-center pt-16">
+                        <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                            <i data-lucide="shopping-cart" class="w-12 h-12 text-gray-400"></i>
+                        </div>
+                        <h2 class="text-xl font-bold mb-2 text-gray-900">Your cart is empty</h2>
+                        <p class="text-gray-600 text-center mb-6">Add materials or services to get started</p>
+                        <button class="bg-gray-900 text-white px-6 py-3 rounded-xl font-bold">Start Shopping</button>
+                    </div>
+                    ${bottomNav('home')}
+                </div>
+            `;
+        }
+
+        function renderScreen34() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${topBar(false, 0)}
+                    <div class="px-4 pb-24">
+                        <h1 class="text-2xl font-bold mb-4 text-gray-900">Notifications</h1>
+                        <div class="flex flex-col items-center justify-center pt-16">
+                            <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                                <i data-lucide="bell" class="w-12 h-12 text-gray-400"></i>
+                            </div>
+                            <h2 class="text-xl font-bold mb-2 text-gray-900">No notifications yet</h2>
+                            <p class="text-gray-600 text-center">We'll notify you when there's something new</p>
+                        </div>
+                    </div>
+                    ${bottomNav('home')}
+                </div>
+            `;
+        }
+
+        function renderScreen35() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${topBar(false, 0)}
+                    <div class="px-4 pb-24">
+                        <h1 class="text-2xl font-bold mb-4 text-gray-900">My Orders</h1>
+                        <div class="flex flex-col items-center justify-center pt-16">
+                            <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                                <i data-lucide="package" class="w-12 h-12 text-gray-400"></i>
+                            </div>
+                            <h2 class="text-xl font-bold mb-2 text-gray-900">No orders yet</h2>
+                            <p class="text-gray-600 text-center mb-6">Start ordering materials or services</p>
+                            <button class="bg-gray-900 text-white px-6 py-3 rounded-xl font-bold">Browse Products</button>
+                        </div>
+                    </div>
+                    ${bottomNav('orders')}
+                </div>
+            `;
+        }
+
+        function renderScreen36() {
+            return `
+                <div class="bg-white relative h-full overflow-y-auto">
+                    ${statusBar()}
+                    ${headerWithBack('Select Location')}
+                    <div class="px-4 pb-24 flex flex-col items-center justify-center pt-16">
+                        <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                            <i data-lucide="map-pin" class="w-12 h-12 text-gray-400"></i>
+                        </div>
+                        <h2 class="text-xl font-bold mb-2 text-gray-900">Area Not Serviceable</h2>
+                        <p class="text-gray-600 text-center mb-6 px-4">We're not available in your area yet. We're expanding soon!</p>
+                        <div class="w-full bg-white border-2 border-gray-300 rounded-2xl p-4 mb-4">
+                            <div class="font-semibold mb-2 text-gray-900">Get notified when we launch</div>
+                            <input type="text" placeholder="Enter your pincode" class="w-full bg-white border-2 border-gray-300 rounded-xl p-3 text-sm mb-2">
+                            <button class="w-full bg-gray-900 text-white py-3 rounded-xl font-bold">Notify Me</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen(screenId) {
+            const renderFunctions = {
+                1: renderScreen01, 2: renderScreen02, 3: renderScreen03, 4: renderScreen04,
+                5: renderScreen05, 6: renderScreen06, 7: renderScreen07, 8: renderScreen08,
+                9: renderScreen09, 10: renderScreen10, 11: renderScreen11, 12: renderScreen12,
+                13: renderScreen13, 14: renderScreen14, 15: renderScreen15, 16: renderScreen16,
+                17: renderScreen17, 18: renderScreen18, 19: renderScreen19, 20: renderScreen20,
+                21: renderScreen21, 22: renderScreen22, 23: renderScreen23, 24: renderScreen24,
+                25: renderScreen25, 26: renderScreen26, 27: renderScreen27, 28: renderScreen28,
+                29: renderScreen29, 30: renderScreen30, 31: renderScreen31, 32: renderScreen32,
+                33: renderScreen33, 34: renderScreen34, 35: renderScreen35, 36: renderScreen36
+            };
+            
+            return renderFunctions[screenId]();
+        }
+
+        function initSidebar() {
+            const categories = {};
+            screens.forEach(screen => {
+                if (!categories[screen.category]) categories[screen.category] = [];
+                categories[screen.category].push(screen);
+            });
+            
+            let html = '';
+            Object.entries(categories).forEach(([category, categoryScreens]) => {
+                html += `<div class="mb-6">`;
+                html += `<h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 px-2">${category}</h3>`;
+                html += `<div class="space-y-1">`;
+                categoryScreens.forEach(screen => {
+                    const isActive = currentScreen === screen.id;
+                    html += `
+                        <button onclick="changeScreen(${screen.id})" class="w-full text-left px-3 py-2 rounded text-sm transition-all border ${
+                            isActive 
+                                ? 'bg-gray-900 text-white border-gray-900 font-medium' 
+                                : 'text-gray-700 hover:bg-gray-100 border-transparent'
+                        }">
+                            ${screen.title}
+                        </button>
+                    `;
+                });
+                html += `</div></div>`;
+            });
+            
+            document.getElementById('sidebar-nav').innerHTML = html;
+        }
+
+        function initMobileSelect() {
+            const categories = {};
+            screens.forEach(screen => {
+                if (!categories[screen.category]) categories[screen.category] = [];
+                categories[screen.category].push(screen);
+            });
+            
+            let html = '';
+            Object.entries(categories).forEach(([category, categoryScreens]) => {
+                html += `<optgroup label="${category}">`;
+                categoryScreens.forEach(screen => {
+                    html += `<option value="${screen.id}" ${currentScreen === screen.id ? 'selected' : ''}>${screen.title}</option>`;
+                });
+                html += `</optgroup>`;
+            });
+            
+            document.getElementById('mobile-select').innerHTML = html;
+        }
+
+        function changeScreen(screenId) {
+            currentScreen = screenId;
+            renderCurrentScreen();
+            initSidebar();
+            initMobileSelect();
+        }
+
+        function renderCurrentScreen() {
+            const screen = screens.find(s => s.id === currentScreen);
+            const screenContent = iPhoneFrame(renderScreen(currentScreen));
+            
+            // Desktop
+            document.getElementById('desktop-title').textContent = screen.title;
+            document.getElementById('desktop-screen').innerHTML = screenContent;
+            document.getElementById('desktop-callout').innerHTML = screen.callout 
+                ? renderCallout(screen.callout.type, screen.callout.title, screen.callout.content)
+                : '';
+            
+            // Mobile
+            document.getElementById('mobile-title').textContent = screen.title;
+            document.getElementById('mobile-screen').innerHTML = screenContent;
+            document.getElementById('mobile-callout').innerHTML = screen.callout 
+                ? renderCallout(screen.callout.type, screen.callout.title, screen.callout.content)
+                : '';
+            
+            // Reinitialize Lucide icons
+            lucide.createIcons();
+        }
+
+        // Mobile select change handler
+        document.getElementById('mobile-select').addEventListener('change', (e) => {
+            changeScreen(parseInt(e.target.value));
+        });
+
+        // Initialize
+        initSidebar();
+        initMobileSelect();
+        renderCurrentScreen();
+    </script>
+</body>
+</html>

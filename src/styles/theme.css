@@ -1,0 +1,383 @@
+/**
+ * Vendara Construction-Native Color System
+ * Derived from construction materials: cement, sand, steel, brick
+ * Professional, calm, and built for outdoor visibility
+ */
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* ================================
+     BRAND COLORS (Construction Materials)
+     ================================ */
+  
+  /* Primary — Steel Blue-Grey (Engineering Color) */
+  --primary: #2F3E46;
+  --primary-foreground: #FFFFFF;
+  --primary-pressed: #243137;
+  --primary-subtle: #E4E9EC;
+  
+  /* Secondary — Sandstone (Construction Material) */
+  --secondary: #D2B48C;
+  --secondary-foreground: #2F3E46;
+  --secondary-subtle: #F3EBDD;
+  
+  /* ================================
+     NEUTRALS (Cement & Plaster)
+     ================================ */
+  
+  /* Backgrounds & Surfaces */
+  --background: #F6F5F3;          /* Cement dust base */
+  --surface: #FFFFFF;             /* Cards */
+  --surface-2: #EFEDEA;           /* Sections */
+  --surface-3: #E6E4E0;           /* Disabled / depth */
+  --surface-inverse: #1C1C1C;     /* Modals only */
+  
+  /* ================================
+     TEXT (Industrial Editorial)
+     ================================ */
+  
+  --text-primary: #1F1F1F;        /* Main content */
+  --text-secondary: #5A5A5A;      /* Supporting */
+  --text-muted: #8E8E8E;          /* Disabled */
+  --text-inverse: #FFFFFF;        /* Dark surfaces */
+  
+  --foreground: var(--text-primary);
+  
+  /* ================================
+     BORDERS & DIVIDERS (Steel + Dust)
+     ================================ */
+  
+  --border: #DDDAD6;              /* Card outlines (light) */
+  --border-strong: #CFCBC5;       /* Inputs */
+  --divider: #E2DFDA;             /* Section breaks */
+  
+  /* ================================
+     STATUS COLORS (Construction-Correct)
+     ================================ */
+  
+  /* Success — Neutral Confirmation (NOT green) */
+  --success: #4A5D73;             /* Blue-grey confirmation */
+  --success-foreground: #FFFFFF;
+  --success-subtle: #E7EDF2;
+  
+  /* Available — True Green (for availability status) */
+  --available: #22C55E;           /* Green for availability */
+  --available-foreground: #FFFFFF;
+  
+  /* Warning — Site Amber */
+  --warning: #C47A2C;             /* Rust, clay, warning tape */
+  --warning-foreground: #FFFFFF;
+  --warning-subtle: #FAEFE1;
+  
+  /* Error — Brick Red */
+  --error: #8B2C2C;               /* Brick, clay, stop signals */
+  --error-foreground: #FFFFFF;
+  --error-subtle: #F2E3E3;
+  
+  /* Destructive (alias for error) */
+  --destructive: var(--error);
+  --destructive-foreground: var(--error-foreground);
+  
+  /* ================================
+     COMPONENT TOKENS
+     ================================ */
+  
+  /* Cards */
+  --card: var(--surface);
+  --card-foreground: var(--text-primary);
+  
+  /* Popovers */
+  --popover: var(--surface);
+  --popover-foreground: var(--text-primary);
+  
+  /* Muted / Disabled */
+  --muted: var(--surface-2);
+  --muted-foreground: var(--text-muted);
+  
+  /* Accent (uses primary subtle) */
+  --accent: var(--primary-subtle);
+  --accent-foreground: var(--primary);
+  
+  /* Inputs */
+  --input: transparent;
+  --input-background: var(--surface-2);
+  --input-border: var(--border-strong);
+  
+  /* Switch */
+  --switch-background: #CFCBC5;
+  
+  /* Focus Ring */
+  --ring: var(--primary);
+  
+  /* ================================
+     SIDEBAR (Vendor Portal)
+     ================================ */
+  
+  --sidebar: var(--surface);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--surface-2);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+  
+  /* ================================
+     CHARTS (Construction Palette)
+     ================================ */
+  
+  --chart-1: #2F3E46;   /* Steel blue-grey */
+  --chart-2: #4A5D73;   /* Success blue-grey */
+  --chart-3: #D2B48C;   /* Sandstone */
+  --chart-4: #C47A2C;   /* Site amber */
+  --chart-5: #8B2C2C;   /* Brick red */
+  
+  /* ================================
+     TYPOGRAPHY
+     ================================ */
+  
+  --font-size: 16px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 600;
+  
+  /* ================================
+     BORDER RADIUS (Construction-Appropriate)
+     ================================ */
+  
+  --radius: 10px;        /* Primary button radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+}
+
+/* ================================
+   DARK MODE (if needed in future)
+   ================================ */
+
+.dark {
+  --background: #1C1C1C;
+  --surface: #2A2A2A;
+  --surface-2: #3A3A3A;
+  --surface-3: #4A4A4A;
+  --surface-inverse: #F6F5F3;
+  
+  --text-primary: #F6F5F3;
+  --text-secondary: #CFCBC5;
+  --text-muted: #8E8E8E;
+  --text-inverse: #1F1F1F;
+  
+  --foreground: var(--text-primary);
+  
+  --border: #3A3A3A;
+  --border-strong: #4A4A4A;
+  --divider: #3A3A3A;
+  
+  --primary: #4A5D73;
+  --primary-foreground: #FFFFFF;
+  
+  --card: var(--surface);
+  --popover: var(--surface);
+}
+
+/* ================================
+   TAILWIND THEME INTEGRATION
+   ================================ */
+
+@theme inline {
+  /* Colors */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-pressed: var(--primary-pressed);
+  --color-primary-subtle: var(--primary-subtle);
+  
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary-subtle: var(--secondary-subtle);
+  
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-inverse: var(--surface-inverse);
+  
+  --color-foreground: var(--foreground);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-inverse: var(--text-inverse);
+  
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-divider: var(--divider);
+  
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-subtle: var(--success-subtle);
+  
+  --color-available: var(--available);
+  --color-available-foreground: var(--available-foreground);
+  
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-subtle: var(--warning-subtle);
+  
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
+  --color-error-subtle: var(--error-subtle);
+  
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-input-border: var(--input-border);
+  
+  --color-switch-background: var(--switch-background);
+  
+  --color-ring: var(--ring);
+  
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  
+  /* Border Radius */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+}
+
+/* ================================
+   BASE STYLES
+   ================================ */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-size: var(--font-size);
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Hide scrollbars while maintaining scroll functionality */
+  .overflow-y-auto::-webkit-scrollbar,
+  .overflow-x-auto::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .overflow-y-auto,
+  .overflow-x-auto {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* ================================
+     TYPOGRAPHY (Mobile-First)
+     ================================ */
+
+  h1 {
+    font-size: 24px;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.3;
+    color: var(--text-primary);
+  }
+
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 32px;
+    }
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.4;
+    color: var(--text-primary);
+  }
+
+  @media (min-width: 768px) {
+    h2 {
+      font-size: 24px;
+    }
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+
+  h4 {
+    font-size: 16px;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: var(--font-weight-normal);
+    line-height: 1.6;
+    color: var(--text-primary);
+  }
+
+  label {
+    font-size: 14px;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+
+  button {
+    font-size: 16px;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  input,
+  textarea,
+  select {
+    /* 16px to prevent iOS zoom */
+    font-size: 16px;
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+  
+  /* Touch-friendly tap highlights */
+  button,
+  a {
+    -webkit-tap-highlight-color: rgba(47, 62, 70, 0.1); /* Primary @ 10% */
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "IpRateLimiting": {
+    "EnableEndpointRateLimiting": true,
+    "StackBlockedRequests": false,
+    "RealIpHeader": "X-Real-IP",
+    "ClientIdHeader": "X-ClientId",
+    "HttpStatusCode": 429,
+    "EndpointWhitelist": [
+      "get:/health",
+      "get:/health/ready"
+    ],
+    "GeneralRules": [
+      {
+        "Endpoint": "post:/api/v1/orders",
+        "Period": "1m",
+        "Limit": 20
+      },
+      {
+        "Endpoint": "post:/api/v1/orders",
+        "Period": "1h",
+        "Limit": 100
+      },
+      {
+        "Endpoint": "*",
+        "Period": "1m",
+        "Limit": 100
+      },
+      {
+        "Endpoint": "*",
+        "Period": "1h",
+        "Limit": 1000
+      },
+      {
+        "Endpoint": "*",
+        "Period": "1d",
+        "Limit": 10000
+      }
+    ],
+    "QuotaExceededResponse": {
+      "Content": "{\"error\": \"Rate limit exceeded\", \"service\": \"OrderService\", \"retryAfter\": \"{0}\", \"message\": \"Too many requests. Please try again later.\"}",
+      "ContentType": "application/json",
+      "StatusCode": 429
+    }
+  },
+  "IpRateLimitPolicies": {
+    "IpRules": []
+  }
+}

@@ -1,0 +1,73 @@
+@import 'tailwindcss' source(none);
+@source '../**/*.{js,ts,jsx,tsx}';
+
+@import 'tw-animate-css';
+
+@theme {
+  /* Construction-native color system */
+  --color-primary-50: #E4E9EC;
+  --color-primary-100: #C9D3D9;
+  --color-primary-200: #93A7B3;
+  --color-primary-300: #5D7B8D;
+  --color-primary-400: #435E6C;
+  --color-primary-500: #2F3E46;
+  --color-primary-600: #243137;
+  --color-primary-700: #1A2429;
+  --color-primary-800: #13191C;
+  --color-primary-900: #0D1113;
+
+  --color-secondary-50: #F3EBDD;
+  --color-secondary-100: #E7D7BB;
+  --color-secondary-200: #DBBD99;
+  --color-secondary-300: #D2B48C;
+  --color-secondary-400: #C5A677;
+  --color-secondary-500: #B89861;
+  --color-secondary-600: #9A7E51;
+  --color-secondary-700: #726041;
+  --color-secondary-800: #4A4231;
+  --color-secondary-900: #2B2621;
+
+  --color-success-50: #E7EDF2;
+  --color-success-100: #CFDBE5;
+  --color-success-200: #9FB7CB;
+  --color-success-300: #6F93B1;
+  --color-success-400: #5A7892;
+  --color-success-500: #4A5D73;
+  --color-success-600: #3B4A5C;
+  --color-success-700: #2C3845;
+  --color-success-800: #1E252E;
+  --color-success-900: #0F1317;
+
+  --color-warning-50: #FAEFE1;
+  --color-warning-100: #F5DFC3;
+  --color-warning-200: #EBBF87;
+  --color-warning-300: #E19F4B;
+  --color-warning-400: #D38A37;
+  --color-warning-500: #C47A2C;
+  --color-warning-600: #9D6223;
+  --color-warning-700: #764A1A;
+  --color-warning-800: #4E3112;
+  --color-warning-900: #271909;
+
+  --color-error-50: #F2E3E3;
+  --color-error-100: #E5C7C7;
+  --color-error-200: #CB8F8F;
+  --color-error-300: #B15757;
+  --color-error-400: #9E3F3F;
+  --color-error-500: #8B2C2C;
+  --color-error-600: #6F2323;
+  --color-error-700: #531A1A;
+  --color-error-800: #381212;
+  --color-error-900: #1C0909;
+
+  --color-neutral-50: #F6F5F3;
+  --color-neutral-100: #EFEDEA;
+  --color-neutral-200: #DDDAD6;
+  --color-neutral-300: #CFCBC5;
+  --color-neutral-400: #BFBAB3;
+  --color-neutral-500: #8E8E8E;
+  --color-neutral-600: #5A5A5A;
+  --color-neutral-700: #3A3A3A;
+  --color-neutral-800: #2A2A2A;
+  --color-neutral-900: #1F1F1F;
+}
